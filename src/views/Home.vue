@@ -5,14 +5,28 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // @ is an alias to /src
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 import HelloWorld from "@/components/HelloWorld.vue";
+import Product from "@/models/Product";
+import { ProductApi } from "@/api/ProductApi";
 
-export default {
-  name: "home",
+@Component({
   components: {
     HelloWorld
   }
-};
+})
+export default class Home extends Vue {
+  private product!: Product | undefined;
+  async mounted(): Promise<void> {
+    try {
+      this.product = await ProductApi.getProduct(11);
+      console.log(this.product);
+    } catch (err) {
+      this.$router.push({ name: "error" });
+    }
+  }
+}
 </script>
