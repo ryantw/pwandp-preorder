@@ -22,7 +22,7 @@ export default class Home extends Vue {
   private product!: Product | undefined;
   async mounted(): Promise<void> {
     try {
-      this.product = await ProductApi.getProduct(11);
+      this.product = await ProductApi.getProduct(1);
       console.log(this.product);
     } catch (err) {
       this.$router.push({ name: "error" });

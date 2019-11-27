@@ -1,9 +1,9 @@
 import axios from "axios";
 import Product, { ProductDTO } from "@/models/Product";
 
-// Fix l8r
-interface RequestProduct {
+interface ProductResponse {
   status: number;
+  message: string;
   data: ProductDTO;
 }
 
@@ -11,10 +11,11 @@ interface RequestProduct {
 export abstract class ProductApi {
   private static productAxios = axios.create();
 
-  static async getProduct(id: number): Promise<Product | undefined> {
-    let response = await this.productAxios.get<Product>(
+  static async getProduct(id: number): Promise<Product> {
+    let response = await this.productAxios.get<ProductResponse>(
       "http://localhost:8080/api/product/" + id
     );
-    return new Product(response.data);
+    console.log("name?");
+    return new Product(response.data.data);
   }
 }

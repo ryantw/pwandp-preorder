@@ -16,7 +16,7 @@ export interface IProduct {
 }
 
 export class ProductDTO implements IProduct {
-  id?: number | undefined;
+  id?: number;
   name: string = "default";
   description: string = "";
   picture: string = "";
@@ -35,6 +35,5 @@ export default class Product extends ProductDTO {
     super();
     Object.assign(this, dto);
   }
-
   // Functions here
 }
