@@ -15,7 +15,7 @@ export abstract class ProductApi {
     let response = await this.productAxios.get<ProductResponse>(
       "http://localhost:8080/api/product/" + id
     );
-    console.log("name?");
+    console.log(response.data.data);
     return new Product(response.data.data);
   }
 }

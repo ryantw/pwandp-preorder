@@ -4,6 +4,7 @@
       <div class="container">
         <h1 class="title">{{ product.name }}</h1>
         <h2 class="subtitle">{{ product.description }}</h2>
+        <h3>{{ product.test }}</h3>
       </div>
     </div>
   </section>
@@ -19,7 +20,7 @@ import { ProductApi } from "@/api/ProductApi";
   components: {}
 })
 export default class ProductView extends Vue {
-  private product: Product = new ProductDTO();
+  private product!: Product;
 
   async mounted(): Promise<void> {
     try {
