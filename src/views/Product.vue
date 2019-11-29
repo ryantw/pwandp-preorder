@@ -13,14 +13,14 @@
 <script lang="ts">
 // @ is an alias to /src
 import { Component, Vue } from "vue-property-decorator";
-import Product, { ProductDTO } from "@/models/Product";
+import Product from "@/models/Product";
 import { ProductApi } from "@/api/ProductApi";
 
 @Component({
   components: {}
 })
 export default class ProductView extends Vue {
-  private product!: Product;
+  private product: Product = {};
 
   async mounted(): Promise<void> {
     try {

@@ -1,21 +1,21 @@
 import axios from "axios";
-import Product, { ProductDTO } from "@/models/Product";
+import Product from "@/models/Product";
 
 interface ProductResponse {
   status: number;
   message: string;
-  data: ProductDTO;
+  data: Product;
 }
 
 // Rework to a more generic API
-export abstract class ProductApi {
+export class ProductApi {
   private static productAxios = axios.create();
 
   static async getProduct(id: number): Promise<Product> {
-    let response = await this.productAxios.get<ProductResponse>(
+    let response = await this.productAxios.get<Product>(
       "http://localhost:8080/api/product/" + id
     );
-    console.log(response.data.data);
-    return new Product(response.data.data);
+    console.log(response);
+    return response.data;
   }
 }
