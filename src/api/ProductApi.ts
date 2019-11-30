@@ -11,11 +11,10 @@ interface ProductResponse {
 export class ProductApi {
   private static productAxios = axios.create();
 
-  static async getProduct(id: number): Promise<Product> {
+  static async getProductById(id: number): Promise<Product> {
     let response = await this.productAxios.get<Product>(
       "http://localhost:8080/api/product/" + id
     );
-    console.log(response);
     return response.data;
   }
 }

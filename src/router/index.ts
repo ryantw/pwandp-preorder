@@ -13,8 +13,8 @@ const routes = [
   {
     path: "/product/:id",
     name: "product",
-    component: () => import("../views/Product.vue"),
-    props: true
+    component: () => import("../views/ProductView.vue")
+    //props: true
   },
   {
     path: "/error",
