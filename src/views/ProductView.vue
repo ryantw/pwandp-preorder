@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="hero-body">
-      <div class="container">
+      <div v-if="product" class="container">
         <h1 class="title">{{ product.name }}</h1>
         <h2 class="subtitle">{{ product.description }}</h2>
       </div>
@@ -19,13 +19,7 @@ import { ProductApi } from "@/api/ProductApi";
   components: {}
 })
 export default class ProductView extends Vue {
-  private product!: Product;
-
-  data() {
-    return {
-      product: {} as Product
-    };
-  }
+  private product: Product | null = null;
 
   private async mounted(): Promise<void> {
     console.log("what!");
