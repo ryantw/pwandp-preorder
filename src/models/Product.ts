@@ -1,7 +1,7 @@
 import { ProductSizes } from '@/models/ProductSizes';
 
 interface Product {
-  id?: number;
+  id?: string;
   name: string;
   description: string;
   picture: string;

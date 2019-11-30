@@ -19,11 +19,12 @@
 </template>
 
 <script lang="ts">
-// @ is an alias to /src
 import { Component, Vue } from 'vue-property-decorator';
 import { Product } from '@/models/Product';
 import { RestApi } from '@/api/RestApi';
 import { Config } from '@/api/Config';
+import { ProductApi } from '@/configs';
+import { ProductAction } from '@/store/actions';
 
 @Component({
   components: {},
@@ -31,9 +32,6 @@ import { Config } from '@/api/Config';
 export default class ProductView extends Vue {
   private product: Product|null = null;
   private isLoading: boolean = true;
-  private apiConfig: Config = {
-    url: String(process.env.VUE_APP_PRODUCT_URL),
-  };
 
   async beforeMount (): Promise<void> {
     this.getProduct();
@@ -42,13 +40,11 @@ export default class ProductView extends Vue {
   async getProduct (): Promise<void> {
     this.isLoading = true;
     try {
-      const response = await RestApi.get<Product>(this.apiConfig);
-      if (response) {
-        this.product = response;
-      } else {
-        console.log('Response was successful buy empty', response);
-        throw new Error('Response was successful buy empty');
-      }
+      const payload: ProductAction = {
+        id: this.productId,
+      };
+      const response = await this.$store.dispatch('getProduct', payload);
+      this.product = response;
     } catch {
       // log error
     } finally {
