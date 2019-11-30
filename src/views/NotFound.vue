@@ -1,14 +1,12 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <h1>This resource was not found.</h1>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-class About extends Vue {}
+class NotFound extends Vue {}
 
-export default About;
+export default NotFound;
 </script>

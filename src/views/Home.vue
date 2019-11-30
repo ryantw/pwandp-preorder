@@ -7,26 +7,13 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import HelloWorld from "@/components/HelloWorld.vue";
-import Product from "@/models/Product";
-import { ProductApi } from "@/api/ProductApi";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import HelloWorld from '@/components/HelloWorld.vue';
 
 @Component({
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 })
-export default class Home extends Vue {
-  private product!: Product | undefined;
-  async mounted(): Promise<void> {
-    try {
-      this.product = await ProductApi.getProduct(1);
-      console.log(this.product);
-    } catch (err) {
-      this.$router.push({ name: "error" });
-    }
-  }
-}
+export default class Home extends Vue {}
 </script>
