@@ -1,0 +1,7 @@
+const SET_LOADING = 'SET_LOADING';
+const SET_PRODUCT = 'SET_PRODUCT';
+
+export {
+  SET_LOADING,
+  SET_PRODUCT,
+};

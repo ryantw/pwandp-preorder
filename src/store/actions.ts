@@ -6,6 +6,11 @@ import { RestApi } from '@/api/RestApi';
 import { Product } from '@/models/Product';
 import { ProductApi } from '@/configs';
 
+import {
+  SET_LOADING,
+  SET_PRODUCT,
+} from './mutationTypes';
+
 interface ProductAction {
   id: string;
   overwrite?: boolean;
@@ -13,7 +18,7 @@ interface ProductAction {
 
 const actions = {
   setLoading ({ commit }: any, loading: boolean) {
-    commit('setLoading', loading);
+    commit([SET_LOADING], loading);
   },
   async getProduct ({ state, dispatch }: { dispatch: any, commit: any, state: State }, payload: ProductAction): Promise<Product|undefined> {
     if (!payload.overwrite) {
@@ -31,11 +36,12 @@ const actions = {
       dispatch('setProduct', product);
       return undefined;
     } catch {
+      console.log('Product response failed for', payload.id);
       // log error
     }
   },
   setProduct ({ commit }: { commit: any }, product: Product) {
-    commit('setProduct', product);
+    commit([SET_PRODUCT], product);
   },
 };
 
