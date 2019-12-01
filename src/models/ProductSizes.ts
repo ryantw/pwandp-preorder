@@ -1,4 +1,4 @@
-export default interface IProductSizes {
+interface ProductSizes {
   id?: number;
   age0to3months: boolean;
   age3to6months: boolean;
@@ -20,3 +20,5 @@ export default interface IProductSizes {
   age12to14year: boolean;
   age14to16year: boolean;
 }
+
+export { ProductSizes };

@@ -5,16 +5,19 @@
         <h1 class="title">
           {{ msg }}
         </h1>
-        <h2 class="subtitle">
-          Hero subtitle
-        </h2>
+        <router-link :to="{
+          name: 'product',
+          params: { productId: 1 }
+        }">
+          Product 1
+        </router-link>
       </div>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class HelloWorld extends Vue {

@@ -1,7 +1,7 @@
-import ProductSizes from "@/models/ProductSizes";
+import { ProductSizes } from '@/models/ProductSizes';
 
-export default interface Product {
-  id?: number;
+interface Product {
+  id?: string;
   name: string;
   description: string;
   picture: string;
@@ -14,3 +14,7 @@ export default interface Product {
   closeProduct: Date;
   productSize: ProductSizes;
 }
+
+export {
+  Product,
+};

@@ -5,10 +5,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Error extends Vue {
+class ErrorView extends Vue {
   @Prop() private id!: number;
 }
+
+export default ErrorView;
 </script>
