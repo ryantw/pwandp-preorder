@@ -29,27 +29,25 @@ const actions = {
         return cachedProduct;
       }
     }
+    let product: undefined|Product;
     try {
       console.log('about to fetch product:', payload.id);
-      const SingleProductApi: Config = {
-        url: `http://localhost:8080/api/product/${payload.id}`,
-      };
-      const product = await RestApi.get<Product>(SingleProductApi);
+      product = await RestApi.get<Product>({ ...ProductApi, url: `${ProductApi.url}/${payload.id}` });
       console.log(product);
       if (!product) {
         console.log('Product response was successful but empty', product);
       }
-      dispatch('setProduct', product);
-      return product;
     } catch(err) {
       console.log('Product response failed for', payload.id);
       console.log(err);
-      return undefined;
+      product = undefined;
+    } finally {
+      dispatch('setProduct', product);
     }
   },
   setProduct ({ commit }: { commit: any }, product: Product) {
     console.log('trying to set product');
-    commit('SET_PRODUCT', product);
+    commit(SET_PRODUCT, product);
   },
 };
 
