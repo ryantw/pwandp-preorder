@@ -5,6 +5,7 @@ import {
 import { RestApi } from '@/api/RestApi';
 import { Product } from '@/models/Product';
 import { ProductApi } from '@/configs';
+import { Config } from '@/api/Config';
 
 import {
   SET_LOADING,
@@ -24,24 +25,31 @@ const actions = {
     if (!payload.overwrite) {
       const cachedProduct = state.products.get(payload.id);
       if (cachedProduct) {
+        console.log('cached product, returning early');
         return cachedProduct;
       }
     }
     try {
       console.log('about to fetch product:', payload.id);
-      let product = await RestApi.get<Product>(ProductApi);
+      const SingleProductApi: Config = {
+        url: `http://localhost:8080/api/product/${payload.id}`,
+      };
+      const product = await RestApi.get<Product>(SingleProductApi);
+      console.log(product);
       if (!product) {
         console.log('Product response was successful but empty', product);
       }
       dispatch('setProduct', product);
-      return undefined;
-    } catch {
+      return product;
+    } catch(err) {
       console.log('Product response failed for', payload.id);
-      // log error
+      console.log(err);
+      return undefined;
     }
   },
   setProduct ({ commit }: { commit: any }, product: Product) {
-    commit([SET_PRODUCT], product);
+    console.log('trying to set product');
+    commit('SET_PRODUCT', product);
   },
 };
 

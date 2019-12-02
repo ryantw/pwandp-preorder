@@ -42,6 +42,7 @@ export default class ProductView extends Vue {
     try {
       const payload: ProductAction = {
         id: this.productId,
+        overwrite: true,
       };
       const response = await this.$store.dispatch('getProduct', payload);
       this.product = response;
