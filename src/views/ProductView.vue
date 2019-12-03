@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Product } from '@/models/Product';
+import { Product } from '@/models';
 import { RestApi } from '@/api/RestApi';
 import { Config } from '@/api/Config';
 import { ProductApi } from '@/configs';
@@ -30,7 +30,6 @@ import { ProductAction } from '@/store/actions';
   components: {},
 })
 export default class ProductView extends Vue {
-  private product: Product|null = null;
   private isLoading: boolean = true;
 
   async beforeMount (): Promise<void> {
@@ -38,14 +37,17 @@ export default class ProductView extends Vue {
   }
 
   async getProduct (): Promise<void> {
-    this.isLoading = true;
+    // no need to show loading if already have product
+    // still call getProduct because cache may be invalid
+    if (!this.product) {
+      this.isLoading = true;
+    }
     try {
       const payload: ProductAction = {
         id: this.productId,
-        overwrite: true,
+        overwrite: false,
       };
-      const response = await this.$store.dispatch('getProduct', payload);
-      this.product = response;
+      await this.$store.dispatch('getProduct', payload);
     } catch {
       // log error
     } finally {
@@ -55,6 +57,10 @@ export default class ProductView extends Vue {
 
   get productId (): string {
     return this.$route.params.productId;
+  }
+
+  get product (): Product|undefined {
+    return this.$store.getters.product(this.productId);
   }
 }
 </script>
