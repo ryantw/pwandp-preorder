@@ -1,17 +1,27 @@
 import { Product } from '@/models/Product';
 
+interface MapStringT<T> {
+  id: string;
+  value: T;
+}
+
+interface ProductMap extends MapStringT<Product|undefined> {}
+interface LoadingMap extends MapStringT<boolean> {}
 
 interface State {
-  loading: boolean;
-  products: Map<string, Product>;
+  loading: LoadingMap[];
+  products: ProductMap[];
 }
 
 const state: State = {
-  loading: false,
-  products: new Map<string, Product>(),
+  loading: [],
+  products: [],
 };
 
 export {
   state,
   State,
+  MapStringT,
+  ProductMap,
+  LoadingMap,
 };
